@@ -56,12 +56,15 @@ clearInput(itemToClear){
 
 
 markToDoComplete(event){
- var doneItem = event;
+  
+ // var newUncompletedArray=event.splice(0,1);
+  var doneItem = this.state.uncompletedToDos.splice(0,1)[0]
+  var newDoneArray= this.state.completedToDos.push(doneItem);
     this.setState(
-        {
-          uncompletedToDos: this.state.completedToDos.pop(),
-          completedToDos: this.state.completedToDos.concat(doneItem)
-      }
+        
+          //Object.assign({}, this.state, {uncompletedToDos: newUncompletedArray, completedToDos: newDoneArray})
+          {completedToDos: (this.state.uncompletedToDos).concat(doneItem) }
+      
     )
 };
 
@@ -94,6 +97,7 @@ componentWillMount(){
             <input type='text' value={this.state.userInput} onChange={this.takeUserInput}/> 
             <button onClick={()=>this.makeNewToDo(this.state.userInput)}>Create</button>
             
+            <button onClick={()=>this.markToDoComplete(this.state.uncompletedToDos)}>done</button>
              <UnCompletedToDos markToDoComplete={this.markToDoComplete} uncompletedToDos={this.state.uncompletedToDos} />
            
        

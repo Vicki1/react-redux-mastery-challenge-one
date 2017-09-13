@@ -10,12 +10,12 @@ export default class  UnCompletedToDos extends Component {
 
         return(
             <div>
-                <br/>
+               
                
                 <ul color='red'>
                     {
                         this.props.uncompletedToDos.map((toDo,i)=>{
-                            return <li key={i} style ={myStyle}><span  onClick={this.props.markToDoComplete}>{toDo}</span></li>
+                            return <li key={i} style ={myStyle}>{toDo}</li>
                         })
                     }
                     
