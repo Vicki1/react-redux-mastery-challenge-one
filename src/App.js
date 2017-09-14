@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import './App.css';
 import UnCompletedToDos from './components/uncompletedToDos/UncompletedToDos';
 import CompletedToDos from './components/completedToDos/CompletedToDos'
-
+var classNames = require('classnames');
 
 class App extends Component {
   constructor(){
@@ -13,14 +13,17 @@ class App extends Component {
       uncompletedToDos: ['first'],
       completedToDos: [],
       deletedArray: [],
-      classNames: ''
+      buttonWork: ''
+     
       
     }
     this.takeUserInput=this.takeUserInput.bind(this);
     this.makeNewToDo = this.makeNewToDo.bind(this);
     this.clearInput = this.clearInput.bind(this);
    this.markToDoComplete = this.markToDoComplete.bind(this);
-   this.deleteCompletedToDo = this.deleteCompletedToDo.bind(this)
+   this.deleteCompletedToDo = this.deleteCompletedToDo.bind(this);
+ 
+
 
     
   }
@@ -32,14 +35,7 @@ takeUserInput(event){
 
 }
 
-conditionalClassMaker(state){
-  var array = this.props.completedToDos;
-   if (array){
-    this.setState({
-      classNames: Object.assign({}, this.state, {classNames: 'done happy'})
-    })
-   }
-}
+
 
 makeNewToDo(newToDo){
    if (newToDo){
@@ -54,6 +50,7 @@ makeNewToDo(newToDo){
         )
         
         this.clearInput(this.state.userInput);
+       
    }
    
 };
@@ -62,6 +59,7 @@ clearInput(itemToClear){
    this.setState({
      userInput : ''
    })
+  
 }
 
 
@@ -77,32 +75,45 @@ markToDoComplete(event){
           {completedToDos: (this.state.completedToDos).concat(doneItem) }
       
     )
+    
 };
 
 
 deleteCompletedToDo(event){
+
+
   var deletedItem = this.state.completedToDos.splice(0,1)[0]
   
     this.setState(
        {completeToDos: (this.state.completedToDos).concat(deletedItem )}
     )
+  
 };
 
 componentWillMount(){
   this.clearInput
-  this.conditionalClassMaker
+  this.makeButtonGreen
 }
 
   
 
   render() {
- console.log(this.state.uncompletedToDos);
- console.log(this.state.completedToDos);
- console.log(this.state.deletedArray)
+ //console.log(this.state.uncompletedToDos);
+ //console.log(this.state.completedToDos);
+ //console.log(this.state.deletedArray)
+
+ 
+ 
+/*var deleteButtonClass = 'btn';
+ var completedlength = this.state.completedToDos;
+ console.log(completedlength)
+ if (true) deleteButtonClass += 'red'*/
+
+
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          
           <h2>ToDo</h2>
         </div>
         <p className="App-intro">
@@ -115,8 +126,10 @@ componentWillMount(){
             <button onClick={()=>this.markToDoComplete(this.state.uncompletedToDos)}>done</button>
              <UnCompletedToDos markToDoComplete={this.markToDoComplete} uncompletedToDos={this.state.uncompletedToDos} />
            <p>Completed</p>
-            <button onClick={()=>this.deleteCompletedToDo(this.state.deletedArray)}>delete</button>
+            <button  onClick={()=>this.deleteCompletedToDo(this.state.completedToDos)}>delete</button>
+   
            <CompletedToDos completedToDos={this.state.completedToDos} />
+   
           
        
            

@@ -2,11 +2,19 @@ import React, {Component} from 'react';
 
 
 export default class  CompletedToDos extends Component {
+        /*construction(props){
+            super();
+        
+            this.state={
+
+            }
+        }*/
+
 
     render(){
-        const myStyle={
-            color: "green",
-        }
+       var complete = this.props.completedToDos;
+       var green = 'green';
+       if (complete.length>0) green += ' btn'
 
         return(
             <div>
@@ -15,7 +23,7 @@ export default class  CompletedToDos extends Component {
                 <ul >
                     {
                         this.props.completedToDos.map((toDo,i)=>{
-                            return <li key={i} style ={myStyle}>{toDo}</li>
+                            return <li className ={green} key={i}>{toDo}</li>
                         })
                     }
                     
